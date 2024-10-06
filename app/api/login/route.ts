@@ -2,8 +2,13 @@ import { NextResponse } from "next/server";
 import connectToDatabase from "@/app/lib/dbConnect";
 import User from "@/app/models/user";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const userFound = async (email : String, password: String) => {
+const JWT_SECRET = "secret";
+
+const userFound = async (email : string, password: string) => {
+    await connectToDatabase();
+
     const user = await User.findOne({ email });
     
     if(!user){
@@ -29,9 +34,17 @@ export async function POST(request: any){
             return NextResponse.json({ message: "Invalid credentials." }, { status: 401 });
         }
 
-
+        const token = jwt.sign(
+            {
+                id: user._id,
+                email: user.email,
+            },
+            JWT_SECRET,
+            { expiresIn : '1h'}
+        );
         return NextResponse.json({
             message: "Login Successful",
+            token
         },{status: 200});
     }
     catch(e){
