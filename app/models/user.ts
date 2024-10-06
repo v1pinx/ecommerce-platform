@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+mongoose.Promise = global.Promise;
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -16,6 +18,5 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const User = mongoose.model('User', userSchema);
 
-export default User;
+export default mongoose.models.User || mongoose.model('User', userSchema);;
