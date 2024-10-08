@@ -98,7 +98,7 @@ export default function Register() {
 
 
 
-                    <button type="submit" className='bg-teal-600 text-white rounded-md h-14 hover:bg-teal-700'>Login</button>
+                    <button type="submit" className='bg-teal-600 text-white rounded-md h-14 hover:bg-teal-700 transition duration-200'>Sign up</button>
                     <Toaster />
                 </form>
 

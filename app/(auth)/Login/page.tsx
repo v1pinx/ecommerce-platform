@@ -86,7 +86,7 @@ export default function Login() {
                 <Toaster />
             </form>
 
-            <div>Don't have an account? <a href="" className='text-teal-500'>Sign up</a></div>
+            <div>Don't have an account? <a href="/Register" className='text-teal-500'>Sign up</a></div>
         </div>
     )
 }
