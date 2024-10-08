@@ -21,9 +21,9 @@ export default function Login() {
             toast.success(response.data.message);
             console.log(response.data.token);
 
-            // setTimeout(() => {
-            //     router.push('/');
-            // }, 1500)
+            setTimeout(() => {
+                router.push('/');
+            }, 1500)
 
         }
         catch (error: any) {
