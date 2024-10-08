@@ -2,10 +2,11 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import fetchProtectedData from "./lib/fetchProtectedData";
+import Products from "./components/Products";
 
 export default function Home() {
     const router = useRouter();
-    const [loading, setLoading] = useState(true); // Add loading state
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -22,17 +23,17 @@ export default function Home() {
                 console.log("No access");
                 router.push('/Login');
             }
-            setLoading(false); // Set loading to false after checking auth
+            setLoading(false);
         };
 
         checkAuth();
     }, [router]);
 
     if (loading) {
-        return <div>Loading...</div>; // Show loading indicator
+        return <div>Loading...</div>;
     }
 
     return (
-        <div>Working</div>
+        <Products/>
     );
 }

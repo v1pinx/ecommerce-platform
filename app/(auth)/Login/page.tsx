@@ -37,13 +37,56 @@ export default function Login() {
         }
     }
 
+
+
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <button type="submit">Login</button>
-            <Toaster />
-        </form>
+        <div className='min-h-screen flex justify-center items-center flex-col'>
+            <form onSubmit={handleSubmit} className='bg-white p-6 rounded-lg  flex flex-col'>
+                <h2 className='font-semibold mb-10 text-center text-3xl'>Welcome Back</h2>
+
+                <div className='relative mb-2'>
+                    <input
+                        type="email"
+                        id='email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        placeholder=' '
+                        className='mb-4 p-4 border border-b-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200 w-96 h-14'
+                    />
+                    <label
+                        className='text-xl text-gray-400 text-opacity-80 absolute left-0 top-0 mx-6 mt-3 px-1 transition duration-200 input-text'
+                        htmlFor='email'
+                    >
+                        Email Address
+                    </label>
+                </div>
+
+                <div className='relative mb-2'>
+                    <input
+                        type="password"
+                        id='password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        placeholder=' '
+                        className='mb-4 p-4 border border-b-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200 w-96 h-14'
+                    />
+                    <label
+                        className='text-xl text-gray-400 text-opacity-80 absolute left-0 top-0 mx-6 mt-3 px-1 transition duration-200 input-text'
+                        htmlFor='email'
+                    >
+                        Password
+                    </label>
+                </div>
+
+
+
+                <button type="submit" className='bg-teal-600 text-white rounded-md h-14'>Login</button>
+                <Toaster />
+            </form>
+
+            <div>Don't have an account? <a href="" className='text-teal-500'>Sign up</a></div>
+        </div>
     )
 }
