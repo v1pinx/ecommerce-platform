@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
-
 const Products = () => {
     const [products, setProducts] = useState<{ id: number; title: string; image: string; price: number; }[]>([]);
     const [loading, setLoading] = useState(true);

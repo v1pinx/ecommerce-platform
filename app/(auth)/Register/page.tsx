@@ -36,42 +36,81 @@ export default function Register() {
     }
 
     return (
+        <>
+            <div className='min-h-screen flex justify-center items-center flex-col'>
+                <form onSubmit={handleSubmit} className='bg-white p-6 rounded-lg  flex flex-col'>
+                    <h2 className='font-semibold mb-10 text-center text-3xl'>Welcome</h2>
+
+                    <div className='relative mb-2'>
+                        <input
+                            type="text"
+                            id='name'
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            placeholder=' '
+                            className='mb-4 p-4 border border-b-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200 w-96 h-14'
+                        />
+                        <label
+                            className='text-xl text-gray-400 text-opacity-80 absolute left-0 top-0 mx-6 mt-3 px-1 transition duration-200 input-text'
+                            htmlFor='name'
+                        >
+                            Name
+                        </label>
+                    </div>
+
+                    <div className='relative mb-2'>
+                        <input
+                            type="email"
+                            id='email'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            placeholder=' '
+                            className='mb-4 p-4 border border-b-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200 w-96 h-14'
+                        />
+                        <label
+                            className='text-xl text-gray-400 text-opacity-80 absolute left-0 top-0 mx-6 mt-3 px-1 transition duration-200 input-text'
+                            htmlFor='email'
+                        >
+                            Email Address
+                        </label>
+                    </div>
 
 
-        <div >
-  <form onSubmit={handleSubmit} className="w-full max-w-md p-6 bg-white shadow-md rounded-lg space-y-6">
-    <h2 >Register</h2>
-    <input 
-      type="text" 
-      placeholder="Name" 
-      value={name} 
-      onChange={(e) => setName(e.target.value)} 
-      required 
-    />
-    <input 
-      type="email" 
-      placeholder="Email" 
-      value={email} 
-      onChange={(e) => setEmail(e.target.value)} 
-      required 
-      
-    />
-    <input 
-      type="password" 
-      placeholder="Password" 
-      value={password} 
-      onChange={(e) => setPassword(e.target.value)} 
-      required 
-    />
-    <button 
-      type="submit" 
-    >
-      Register
-    </button>
-    <Toaster />
-  </form>
-</div>
+                    <div className='relative mb-2'>
+                        <input
+                            type="password"
+                            id='password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            placeholder=' '
+                            className='mb-4 p-4 border border-b-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200 w-96 h-14'
+                        />
+                        <label
+                            className='text-xl text-gray-400 text-opacity-80 absolute left-0 top-0 mx-6 mt-3 px-1 transition duration-200 input-text'
+                            htmlFor='email'
+                        >
+                            Password
+                        </label>
+                    </div>
 
+
+
+                    <button type="submit" className='bg-teal-600 text-white rounded-md h-14 hover:bg-teal-700'>Login</button>
+                    <Toaster />
+                </form>
+
+                <div>Already have an account? <a href="/Login" className='text-teal-500'>Log in</a></div>
+            </div>
+            <div >
+
+            </div>
+
+
+
+        </>
 
     )
 }
