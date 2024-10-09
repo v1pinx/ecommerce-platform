@@ -6,7 +6,7 @@ import Products from "./components/Products";
 import Navbar from "./components/Navbar";
 import Categories from "./components/Categories";
 import LaptopCard from "./components/LaptopCard";
-import LaptopShowcase from "./components/LaptopShowcase";
+import ProductShowcase from "./components/ProductShowcase";
 
 export default function Home() {
     const router = useRouter();
@@ -39,9 +39,8 @@ export default function Home() {
 
     return (
         <>
-            <Navbar />
             <Categories />
-            <LaptopShowcase />
+            <ProductShowcase />
         </>
     );
 }

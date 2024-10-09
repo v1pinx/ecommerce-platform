@@ -18,6 +18,7 @@ export default function Login() {
                 password
             });
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('id', response.data.id);
             toast.success(response.data.message);
             console.log(response.data.token);
 
