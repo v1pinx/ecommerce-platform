@@ -20,7 +20,7 @@ export default function Categories() {
             }
         };
         fetchCategories();
-    })
+    },[]);
 
     const handleMouseEnter = (x: any) => {
         if (timeoutId) clearTimeout(timeoutId);
