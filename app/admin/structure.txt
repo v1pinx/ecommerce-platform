@@ -1,0 +1,42 @@
+/your-project
+│
+├── /app
+│   ├── /admin          # Admin-related pages and components
+│   │   ├── /products   # CRUD pages for products
+│   │   │   ├── index.tsx  # List products (GET all products)
+│   │   │   ├── add.tsx    # Add new product (POST request)
+│   │   │   ├── [id].tsx   # Edit product by ID (GET, PUT, DELETE product)
+│   │   ├── /users      # Manage users
+│   │   │   ├── index.tsx  # List users (GET all users)
+│   │   │   ├── [id].tsx   # Edit user by ID (GET, PUT, DELETE user)
+│   │   ├── dashboard.tsx  # Admin dashboard
+│   │   └── index.tsx      # Admin login or redirect to dashboard
+│   ├── /api
+│   │   ├── /products     # API routes for managing products (CRUD)
+│   │   │   ├── index.ts  # Handle GET all products and POST (add product)
+│   │   │   ├── [id].ts   # Handle GET, PUT, DELETE for product by ID
+│   │   ├── /users        # API routes for managing users
+│   │   │   ├── index.ts  # Handle GET all users, POST (add user)
+│   │   │   ├── [id].ts   # Handle GET, PUT, DELETE for user by ID
+│   ├── /components       # Reusable components (can have admin-specific components)
+│   │   ├── /admin        # Admin-specific components
+│   │   │   ├── Sidebar.tsx  # Admin sidebar component
+│   │   │   ├── Header.tsx   # Admin header component
+│   │   └── /shared        # Common components (e.g., buttons, forms)
+│   └── /styles           # CSS/SCSS or Tailwind CSS configurations
+│
+├── /public               # Public assets (images, fonts, etc.)
+│   ├── /uploads          # Uploaded files (optional if you store images locally)
+│
+├── /lib                  # Helper utilities (database, API calls, etc.)
+│   ├── dbConnect.ts      # Database connection utility (e.g., MongoDB)
+│   └── auth.ts           # Authentication logic (for securing admin panel)
+│
+├── /models               # Mongoose models or Prisma schema
+│   ├── Product.ts        # Product model
+│   ├── User.ts           # User model
+│
+├── .env.local            # Environment variables (e.g., database URI, API keys)
+├── next.config.js        # Next.js configuration
+├── package.json          # Project dependencies
+└── tsconfig.json         # TypeScript configuration (if using TypeScript)

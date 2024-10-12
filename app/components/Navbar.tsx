@@ -14,7 +14,7 @@ export default function Navbar() {
     const [timeoutId, setTimeoutId] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const pathname = usePathname();
-    const hideNavbarRoutes: any = ['/Login', '/Register'];
+    const hideNavbarRoutes: any = ['/Login', '/Register', '/admin'];
 
     const handleMouseEnter = () => {
         if (timeoutId) clearTimeout(timeoutId);
@@ -38,19 +38,6 @@ export default function Navbar() {
             router.push('/Login');
         }, 1500)
     }
-    // useEffect(() => {
-    //     const fetchCategories = async () => {
-    //         try {
-    //             const response = await axios.get('https://fakestoreapi.com/products/categories');
-    //             setCategories(response.data);
-    //         } catch (error) {
-    //             console.error("Error fetching categories:", error);
-    //         }
-    //     };
-
-    //     fetchCategories();
-    // },[]);
-
     return (
         <>
             {!hideNavbarRoutes.includes(pathname) && (

@@ -28,9 +28,9 @@ export default function ProductShowcase() {
     const fetchProducts = async (page: number) => {
       try {
         const response = await axios.get(
-          `https://fakestoreapi.in/api/products?page=${page}&limit=${productsPerPage}`
+          `/api/products?page=${page}&limit=${productsPerPage}`
         );
-        const fetchedProducts = response.data.products.map((product: any) => ({
+        const fetchedProducts = response.data.map((product: any) => ({
           id: product.id,
           title: product.title,
           image: product.image,
@@ -78,23 +78,12 @@ export default function ProductShowcase() {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center h-screen"><span className="loader"></span></div>;
   }
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-center mt-4">Product Showcase</h1>
-      {/* <div className="w-96 mx-4 invisible sm:visible">
-
-        <input
-          type="text"
-          className="bg-gray-100 h-12  rounded-l-md px-4 focus:outline-none focus:border-teal-500"
-          placeholder="Search for products, brands, and more"
-          value={searchQuery}
-          onChange={handleSearch} // Update search query on change
-        />
-
-      </div> */}
       <div className="flex flex-wrap justify-center gap-6 p-6">
         {products.map((product: Product) => (
           <ProductCard key={product.id} product={product} />

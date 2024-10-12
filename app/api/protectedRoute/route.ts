@@ -3,7 +3,7 @@ import { authenticateToken } from "@/app/middleware/authenticateToken";
 
 export async function GET(request: Request) {
     try {
-        const user = await authenticateToken(request); // Assuming authenticateToken returns the user or throws an error
+        const user = await authenticateToken(request);
 
         if (user) {
             return NextResponse.json([{ message: "You have access" }, { user }], { status: 200 });
