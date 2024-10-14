@@ -58,14 +58,14 @@ export default function Categories() {
     return (
         <div className=" px-8  sm:px-16  py-2 border-t border-b border-teal-500">
             <div className="max-w-4xl flex justify-between items-center m-auto">
-                <div> Browse laptops</div>
+                <div> Browse products</div>
                 <div
                     className="relative"
                     onMouseEnter={() => handleMouseEnter(setBrandDropdown)}
                     onMouseLeave={() => handleMouseLeave(setBrandDropdown)}
                 >
 
-                    <div className="cursor-pointer">Brands</div>
+                    {/* <div className="cursor-pointer">Brands</div>
                     {brandDropdown && (
                         <div className="absolute -left-20 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10">
                             <ul className="">
@@ -74,7 +74,7 @@ export default function Categories() {
                                 ))}
                             </ul>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <div
                     className="relative"

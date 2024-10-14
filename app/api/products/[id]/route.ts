@@ -7,16 +7,32 @@ export async function GET(req: Request, { params }: { params: { id?: string } })
 
     await connectToDatabase();
 
-    try {
-        const product = await Product.findOne({ id: params.id });
-        if (!product) {
-            return NextResponse.json({ message: "Product not found" }, { status: 404 });
+    if (params.id == 'category') {
+        try {
+            const products = await Product.find({});
+
+            const categories = Array.from(new Set(products.map(product => product.category)));
+            console.log(categories);
+
         }
-        return NextResponse.json(product, { status: 200 });
+        catch (e: any) {
+
+        }
     }
-    catch (e) {
-        console.error(e);
-        return NextResponse.json({ message: "An error occurred." }, { status: 500 });
+    else {
+
+
+        try {
+            const product = await Product.findOne({ id: params.id });
+            if (!product) {
+                return NextResponse.json({ message: "Product not found" }, { status: 404 });
+            }
+            return NextResponse.json(product, { status: 200 });
+        }
+        catch (e) {
+            console.error(e);
+            return NextResponse.json({ message: "An error occurred." }, { status: 500 });
+        }
     }
 }
 
