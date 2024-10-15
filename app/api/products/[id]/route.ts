@@ -14,9 +14,12 @@ export async function GET(req: Request, { params }: { params: { id?: string } })
             const categories = Array.from(new Set(products.map(product => product.category)));
             console.log(categories);
 
+            return NextResponse.json({categories}, {status: 200});
+
         }
         catch (e: any) {
-
+            console.error(e);
+            return NextResponse.json({ message: "An error occurred while fetching categories." }, { status: 500 });
         }
     }
     else {
