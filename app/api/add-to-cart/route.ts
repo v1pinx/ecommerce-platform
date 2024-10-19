@@ -6,7 +6,7 @@ export async function POST(request: any) {
     await connectToDatabase();
 
     const { productId, userId } = await request.json();
-    console.log("Proudct ID:>", productId);
+    ("Proudct ID:>", productId);
 
     if (!productId) {
         return NextResponse.json({ message: "Missing fields." }, { status: 400 });
@@ -34,7 +34,7 @@ export async function POST(request: any) {
         return NextResponse.json({ message: "Added to cart." }, { status: 200 });
     }
     catch (e) {
-        console.log(e);
+        (e);
         return NextResponse.json({ message: "An error occurred. Please try again." }, { status: 500 });
     }
 }

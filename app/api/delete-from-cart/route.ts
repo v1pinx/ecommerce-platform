@@ -38,7 +38,7 @@ export async function DELETE(request: any) {
 
         return NextResponse.json({ message: "Product removed from cart." }, { status: 200 });
     } catch (e) {
-        console.log(e);
+        (e);
         return NextResponse.json({ message: "An error occurred. Please try again." }, { status: 500 });
     }
 }

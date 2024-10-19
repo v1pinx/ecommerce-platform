@@ -12,14 +12,13 @@ export default function Home() {
         const checkAuth = async () => {
             const token = localStorage.getItem("token");
             if (!token) {
-                console.log("Token not found");
                 router.push('/Login');
                 return;
             }
 
             const access = await fetchProtectedData(token);
             if (!access) {
-                console.log("No access");
+                ("No access");
                 router.push('/Login');
             }
             setLoading(false);

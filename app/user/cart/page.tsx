@@ -71,9 +71,9 @@ export default function Cart() {
                 const response = await axios.get(`/api/get-cart?userId=${userId}`);
                 if (response.status === 200) {
                     setCartDetails(response.data.cart);
-                    console.log("Cart details fetched successfully");
+                    ("Cart details fetched successfully");
                 } else {
-                    console.log("Error fetching cart details");
+                    ("Error fetching cart details");
                 }
             } catch (error) {
                 console.error("Error fetching cart details:", error);
@@ -122,7 +122,7 @@ export default function Cart() {
                 // Remove the item from cartItems after successful deletion
                 setCartItems(prevItems => prevItems.filter(item => String(item.id) !== productId));
                 toast.success("Item removed successfully");
-                console.log("Product successfully removed from the cart.");
+                ("Product successfully removed from the cart.");
             } else {
                 console.error("Error removing product from the cart:", response.data.message);
             }

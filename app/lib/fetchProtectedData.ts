@@ -8,7 +8,7 @@ const fetchProtectedData = async (token: string): Promise<boolean> => {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response.status)
+        (response.status)
         return response.status === 200; 
     } catch (error) {
         console.error("Error fetching protected data:", error);

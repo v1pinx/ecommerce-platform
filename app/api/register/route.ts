@@ -27,7 +27,7 @@ async function createUser(name: string, email: string, password: string) {
         }
     }
     catch (e) {
-        console.log(e);
+        (e);
         return {
             message: "Internal Server Error (createUser)."
         };
@@ -47,7 +47,7 @@ export async function POST(request: any) {
             return NextResponse.json(user, { status: 409 });
         }
 
-        console.log("User Created: ", user);
+        ("User Created: ", user);
         return NextResponse.json(user, { status: 201 });
     }
     catch (error) {
