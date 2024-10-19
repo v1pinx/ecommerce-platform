@@ -2,11 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import fetchProtectedData from "./lib/fetchProtectedData";
-import Products from "./components/Products";
-import Navbar from "./components/Navbar";
-import Categories from "./components/Categories";
-import LaptopCard from "./components/LaptopCard";
-import ProductShowcase from "./components/ProductShowcase";
+import Link from "next/link";
 
 export default function Home() {
     const router = useRouter();
@@ -22,7 +18,6 @@ export default function Home() {
             }
 
             const access = await fetchProtectedData(token);
-            console.log(access);
             if (!access) {
                 console.log("No access");
                 router.push('/Login');
@@ -39,8 +34,11 @@ export default function Home() {
 
     return (
         <>
-            <Categories />
-            <ProductShowcase />
+            <div className="flex justify-center items-center h-screen">
+                <Link href='/products'>
+                    <button className="px-8 py-4 rounded-lg border bg-black text-white">Products</button>
+                </Link>
+            </div>
         </>
     );
 }
