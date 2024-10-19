@@ -19,8 +19,8 @@ export default function Login() {
             });
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('id', response.data.id);
+            localStorage.setItem('role', response.data.role);
             toast.success(response.data.message);
-            console.log(response.data.token);
 
             setTimeout(() => {
                 router.push('/');

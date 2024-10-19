@@ -38,10 +38,19 @@ export default function Cart() {
         "SQUARE": 99.99
     };
 
-    const totalAmount = cartItems.reduce((total, item) => total + item.price, 0);
-    const cartDiscount = cartItems.reduce((total, item) => total + (item.discount || 0), 0);
-    const totalDiscount = Math.max(cartDiscount, discount);
+    const totalAmount = cartItems.reduce((total, item) => {
+        const cartDetail = cartDetails.find(detail => detail.productId === item.id);
+        const quantity = cartDetail ? cartDetail.quantity : 1;
+        return total + (item.price * quantity);
+    }, 0);
 
+    const cartDiscount = cartItems.reduce((total, item) => {
+        const cartDetail = cartDetails.find(detail => detail.productId === item.id);
+        const quantity = cartDetail ? cartDetail.quantity : 1;
+        return total + ((item.discount || 0) * quantity);
+    }, 0);
+
+    const totalDiscount = Math.max(cartDiscount, discount);
 
     const handleApplyCoupon = () => {
         if (validCoupons[coupon]) {
@@ -112,6 +121,7 @@ export default function Cart() {
             if (response.status === 200) {
                 // Remove the item from cartItems after successful deletion
                 setCartItems(prevItems => prevItems.filter(item => String(item.id) !== productId));
+                toast.success("Item removed successfully");
                 console.log("Product successfully removed from the cart.");
             } else {
                 console.error("Error removing product from the cart:", response.data.message);
@@ -119,6 +129,16 @@ export default function Cart() {
         } catch (error) {
             console.error("An error occurred while trying to remove the product from the cart:", error);
         }
+    };
+
+    const updateQuantity = (productId: number, newQuantity: number) => {
+        setCartDetails(prevDetails =>
+            prevDetails.map(detail =>
+                detail.productId === productId
+                    ? { ...detail, quantity: newQuantity }
+                    : detail
+            )
+        );
     };
 
     const handlePayment = () => {
@@ -136,33 +156,56 @@ export default function Cart() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Left Column - Cart Products (Wider Column) */}
                     <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-6">
-                        {cartItems.map((item) => (
-                            <div key={item.id} className="flex items-start mb-6 border-b pb-4">
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    className="w-32 h-32 object-cover rounded-md border border-gray-200"
-                                />
-                                <div className="ml-4 flex-grow">
-                                    <h2 className="text-lg font-semibold text-gray-800">{item.title}</h2>
-                                    <p className="text-gray-600">{item.model}</p>
-                                    <div className="flex items-center mt-2">
-                                        <p className="text-xl font-bold text-teal-600">
-                                            ₹{item.price - (item.discount || 0)}
-                                        </p>
-                                        <span className="line-through text-gray-500 ml-2">₹{item.price}</span>
+                        {cartItems.map((item) => {
+                            const cartDetail = cartDetails.find(detail => detail.productId === item.id);
+                            const quantity = cartDetail ? cartDetail.quantity : 1;
+
+                            return (
+                                <div key={item.id} className="flex items-start mb-6 border-b pb-4">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-32 h-32 object-cover rounded-md border border-gray-200"
+                                    />
+                                    <div className="ml-4 flex-grow">
+                                        <h2 className="text-lg font-semibold text-gray-800">{item.title}</h2>
+                                        <p className="text-gray-600">{item.model}</p>
+                                        <div className="flex items-center mt-2">
+                                            <p className="text-xl font-bold text-teal-600">
+                                                ₹{(item.price - (item.discount || 0)) * quantity}
+                                            </p>
+                                            <span className="line-through text-gray-500 ml-2">
+                                                ₹{item.price * quantity}
+                                            </span>
+                                        </div>
+                                        <p className="text-green-600">− ₹{(item.discount || 0) * quantity} ({(((item.discount || 0) / item.price) * 100).toFixed(0)}% Off)</p>
+                                        <p className="text-gray-500">Delivery by Mon Oct 14 | ₹{deliveryCharges} Free</p>
+                                        
+                                        {/* Quantity Selector */}
+                                        <div className="mt-2">
+                                            <label htmlFor={`quantity-${item.id}`} className="text-gray-700">
+                                                Quantity:
+                                            </label>
+                                            <input
+                                                type="number"
+                                                id={`quantity-${item.id}`}
+                                                className="border rounded-md w-16 ml-2 text-center"
+                                                min={1}
+                                                value={quantity}
+                                                onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
+                                            />
+                                        </div>
+
+                                        <button 
+                                            className="mt-2 text-red-500 hover:text-red-700 font-semibold" 
+                                            onClick={() => deleteFromCart(String(item.id))}
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
-                                    <p className="text-green-600">− ₹{(item.discount || 0)} ({(((item.discount || 0) / item.price) * 100).toFixed(0)}% Off)</p>
-                                    <p className="text-gray-500">Delivery by Mon Oct 14 | ₹{deliveryCharges} Free</p>
-                                    <button 
-                                        className="mt-2 text-red-500 hover:text-red-700 font-semibold" 
-                                        onClick={() => deleteFromCart(String(item.id))}
-                                    >
-                                        Delete
-                                    </button>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                         {/* Pay Button */}
                         <div className="flex justify-between items-center mt-6">
                             <h2 className="text-2xl font-bold">Total: ₹{(totalAmount - totalDiscount).toFixed(2)}</h2>
@@ -186,37 +229,32 @@ export default function Cart() {
                             <span className="text-gray-700">Discount</span>
                             <span className="text-red-500">− ₹{totalDiscount}</span>
                         </div>
-                        <div className="flex justify-between mb-4">
+                        <div className="flex justify-between mb-2">
                             <span className="text-gray-700">Delivery Charges</span>
-                            <span className="text-gray-500">₹{deliveryCharges} Free</span>
+                            <span className="text-green-600">₹{deliveryCharges}</span>
                         </div>
-                        <div className="border-t pt-2 mb-4">
-                            <div className="flex justify-between font-bold text-gray-800">
-                                <span>Total Amount</span>
-                                <span>₹{(totalAmount - totalDiscount).toFixed(2)}</span>
-                            </div>
-                            <p className="text-green-600 mt-2">You will save ₹{totalDiscount.toFixed(2)} on this order</p>
+                        <hr className="my-2" />
+                        <div className="flex justify-between mb-2">
+                            <span className="font-bold text-gray-800">Total Amount</span>
+                            <span className="font-bold text-gray-800">₹{(totalAmount - totalDiscount).toFixed(2)}</span>
                         </div>
+                        
+                        {/* Coupon Input */}
                         <div className="mt-4">
                             <input
                                 type="text"
-                                placeholder="Add coupon code"
-                                className="border rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                className="border rounded-md w-full px-3 py-2"
+                                placeholder="Enter coupon code"
                                 value={coupon}
                                 onChange={(e) => setCoupon(e.target.value)}
                             />
-                            <button
-                                className="mt-2 w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-700 transition duration-200"
+                            <button 
+                                className="bg-teal-600 text-white py-2 px-4 rounded-md w-full mt-2 hover:bg-teal-700 transition duration-200"
                                 onClick={handleApplyCoupon}
                             >
                                 Apply Coupon
                             </button>
-                            {discount !== 0 && (
-                                <p className="mt-2 text-green-600">Coupon applied! You got a {discount} discount.</p>
-                            )}
-                            {error && (
-                                <p className="mt-2 text-red-600">{error}</p>
-                            )}
+                            {error && <p className="text-red-500 mt-2">{error}</p>}
                         </div>
                     </div>
                 </div>

@@ -38,6 +38,7 @@ export async function POST(request: any){
             {
                 id: user._id,
                 email: user.email,
+                role: user.role,
             },
             JWT_SECRET,
             { expiresIn : '1h'}
@@ -45,6 +46,7 @@ export async function POST(request: any){
         return NextResponse.json({
             message: "Login Successful",
             id: user._id,
+            role: user.role,
             token
         },{status: 200});
     }

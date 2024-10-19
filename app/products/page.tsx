@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import ProductCard from '../components/ProductCard';
@@ -18,7 +18,7 @@ interface Product {
   discount: number;
 }
 
-export default function ProductShowcase() {
+const ProductShowcase = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(20);
@@ -41,7 +41,7 @@ export default function ProductShowcase() {
       }
 
       setProducts(fetchedProducts);
-      if(!category){
+      if (!category) {
         toast.success(`Products loaded Successfully`);
       }
     } catch (error) {
@@ -113,8 +113,8 @@ export default function ProductShowcase() {
   }
 
   return (
-    <div className="p-6">
-
+    <div className="p-6 mt-8">
+      <div className='font-bold text-5xl text-center mb-12'>Product Gallery</div>
       <div className="flex flex-wrap justify-center gap-6 mb-6">
         <div className="w-64">
           <label className="block text-sm font-medium mb-1">Category</label>
@@ -200,5 +200,14 @@ export default function ProductShowcase() {
         </button>
       </div>
     </div>
+  );
+};
+
+// Export the component wrapped in a Suspense boundary
+export default function ProductShowcaseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductShowcase />
+    </Suspense>
   );
 }

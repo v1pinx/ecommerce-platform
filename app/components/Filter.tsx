@@ -13,23 +13,13 @@ export default function Filter() {
     const handleCategoryChange = (e : any) => {
         setCategory(e.target.value);
     };
-
-    // const handlePriceChange = (e) => {
-    //     const { value, name } = e.target;
-    //     setPriceRange((prev) => {
-    //         const newRange = [...prev];
-    //         if (name === "min") {
-    //             newRange[0] = Number(value);
-    //         } else {
-    //             newRange[1] = Number(value);
-    //         }
-    //         return newRange;
-    //     });
-    // };
-
     const handleSortChange = (e : any) => {
         setSortBy(e.target.value);
     };
+
+    const capitalizeFirstLetter = (str: string) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -46,7 +36,7 @@ export default function Filter() {
     }, []);
 
     return (
-        <div className="border-2 border-gray-300 rounded-lg p-4 shadow-lg max-w-xs mx-auto">
+        <div className="border-2 border-gray-300 rounded-lg p-4 shadow-lg max-w-xs ml-10">
             <h2 className="text-lg font-bold mb-4">Filter</h2>
             
             {loading ? ( // Show loading state
@@ -62,7 +52,7 @@ export default function Filter() {
                         >
                             <option value="">Select a category</option>
                             {categories.map((cat) => (
-                                <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                                <option key={cat} value={cat}>{capitalizeFirstLetter(cat)}</option>
                             ))}
                         </select>
                     </div>
