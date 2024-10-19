@@ -21,7 +21,7 @@ export async function GET(request: any) {
         return NextResponse.json({cart: cartItems}, {status: 200});
     }
     catch(e){
-        (e);
+        console.error(e);
         return NextResponse.json({message: "An error occurred. Please try again."}, {status: 500});
     }
 }

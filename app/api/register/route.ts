@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectToDatabase from "@/app/lib/dbConnect";
 import User from "@/app/models/user";
 import bcrypt from "bcrypt";
+import { error } from "console";
 
 async function createUser(name: string, email: string, password: string) {
     await connectToDatabase();
@@ -27,7 +28,7 @@ async function createUser(name: string, email: string, password: string) {
         }
     }
     catch (e) {
-        (e);
+        console.error(e);
         return {
             message: "Internal Server Error (createUser)."
         };
@@ -47,7 +48,6 @@ export async function POST(request: any) {
             return NextResponse.json(user, { status: 409 });
         }
 
-        ("User Created: ", user);
         return NextResponse.json(user, { status: 201 });
     }
     catch (error) {

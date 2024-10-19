@@ -17,7 +17,6 @@ const AdminPanel = () => {
         const checkAuth = async () => {
             const token = localStorage.getItem("token");
             if (!token) {
-                ("Token not found");
                 router.push('/Login');
                 return;
             }
