@@ -48,7 +48,7 @@ export default function Navbar() {
     return (
         <>
             {!hideNavbarRoutes.includes(pathname) && (
-                <nav className="flex justify-between items-center bg-black px-8 sm:px-16 py-4 shadow-md">
+                <nav className="flex justify-between items-center bg-black px-8 sm:px-16 py-4 shadow-md absolute w-full z-10">
                     <Toaster />
                     <Link href='/'>
                         <div className="font-semibold text-3xl text-white">Square</div>
@@ -178,7 +178,7 @@ const CategoryContent = () => {
     };
 
     return (
-        <div className="w-40 bg-black p-6 shadow-2xl -left-11 absolute">
+        <div className="w-40 bg-black px-6 py-4 shadow-2xl -left-11 absolute">
             <div className="space-y-2 text-white">
                 {Object.entries(categoryObj).map(([key, url], index) => (
                     <motion.div
@@ -190,7 +190,7 @@ const CategoryContent = () => {
                     >
                         <motion.a
                             href={url}
-                            className="block w-full"
+                            className="relative"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { duration: 0.5 } }} // Fade-in effect
                         >
@@ -292,7 +292,7 @@ const PageContent = () => {
     };
 
     return (
-        <div className="w-48 bg-black p-6 shadow-2xl -left-8 absolute">
+        <div className="w-48 bg-black px-6 py-4 shadow-2xl -left-8 absolute">
             <div className="space-y-2 text-white" >
                 {Object.entries(pagesObj).map(([key, url], index) => (
                     <motion.div key={index}
