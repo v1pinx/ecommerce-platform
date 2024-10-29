@@ -1,53 +1,75 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import ProductCard from './ProductCard';
+
+interface Product {
+    id: number;
+    title: string;
+    image: string;
+    price: number;
+    description: string;
+    brand: string;
+    model: string;
+    color: string;
+    category: string;
+    discount: number;
+}
+
 export default function TrendingProducts() {
-    const products = [
-        {
-            id: 1,
-            name: 'Apple MacBook Pro',
-            price: '$1999',
-            image: 'https://via.placeholder.com/300', // Replace with actual product image URLs
-        },
-        {
-            id: 2,
-            name: 'Sony WH-1000XM5 Headphones',
-            price: '$399',
-            image: 'https://via.placeholder.com/300',
-        },
-        {
-            id: 3,
-            name: 'Samsung Galaxy S23 Ultra',
-            price: '$1199',
-            image: 'https://via.placeholder.com/300',
-        },
-    ];
+
+    const [products, setProducts] = useState<Product[]>([]);
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get('/api/products?limit=3');
+                setProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching data', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
 
     return (
-        <div className="max-w-7xl mx-auto p-4">
-            <h2 className="text-white text-5xl font-bold mb-8">Trending Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
+        <>
+            <div className="max-w-7xl mx-auto p-4">
+                <h2 className=" text-5xl font-bold pb-8 text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">Trending Products</h2>
+                <div className="flex flex-wrap justify-center gap-6">
+                    {products
+                        .map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                </div>
+                <DiscountBanner />
             </div>
-        </div>
+        </>
     );
 }
 
-const ProductCard = ({ product }) => {
-    return (
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="relative">
-            <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-64 object-cover rounded-md mb-4"
-            />
-            <div className="text-black absolute bottom-0 mx-auto max-w-full    z-10 ">Add to cart</div>
+
+const DiscountBanner = () => (
+    <div className="relative mt-16 h-[550px] bg-cover bg-center rounded-lg shadow-lg"
+        style={{ backgroundImage: "url(//techno-workdo.myshopify.com/cdn/shop/files/discount-banner.png?v=1714633110)" }}>
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex  justify-center p-8 rounded-lg">
+            <div className="text-center space-y-2">
+                <div className="text-lg text-white">BIG DISCOUNT</div>
+                <h2 className="text-4xl font-bold text-white">
+                    <a href="/products/iphone-15">Apple iPhone 15 Pro Max</a>
+                </h2>
+                <div className="flex items-center justify-center space-x-4 text-xl">
+                    <div className="text-red-500 font-semibold">$50.00</div>
+                    <del className="text-blue-300 text-sm">$55.00</del>
+                </div>
+                <form method="post" action="/cart/add" className="mt-4">
+                    <input type="hidden" name="id" value="49045816312081" />
+                    <button className="px-4 py-2 text-sm md:text-lg bg-blue-500 hover:bg-white hover:text-black transition text-white">
+                        Add to Cart
+                    </button>
+                </form>
             </div>
-            <h3 className="text-xl font-semibold text-white">{product.name}</h3>
-            <p className="text-gray-400 mt-2">{product.price}</p>
-            <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                Add to Cart
-            </button>
         </div>
-    );
-};
+    </div>
+);
+

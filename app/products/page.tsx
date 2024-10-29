@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import ProductCard from '../components/ProductCard';
 import toast, { Toaster } from 'react-hot-toast';
+import { url } from 'inspector';
 
 interface Product {
   id: number;
@@ -29,6 +30,8 @@ const ProductShowcase = () => {
   const [sortBy, setSortBy] = useState('');
   const searchParams = useSearchParams();
 
+  
+
   const fetchProducts = async (page: number) => {
     setLoading(true);
     try {
@@ -42,7 +45,7 @@ const ProductShowcase = () => {
 
       setProducts(fetchedProducts);
       if (!category) {
-        toast.success(`Products loaded Successfully`);
+        toast.success(`Products loaded successfully!`);
       }
     } catch (error) {
       console.error('Error fetching data', error);
@@ -113,15 +116,28 @@ const ProductShowcase = () => {
   }
 
   return (
-    <div className="p-6 mt-8">
-      <div className='font-bold text-5xl text-center mb-12'>Product Gallery</div>
-      <div className="flex flex-wrap justify-center gap-6 mb-6">
+    <div className="bg-black min-h-screen pt-6">
+      <Toaster />
+      <div
+        className="bg-cover bg-center min-h-[50vh] flex items-center justify-center"
+        style={{
+          backgroundImage: "url(//techno-workdo.myshopify.com/cdn/shop/files/common-banner.png?v=1714735867)",
+        }}
+      >
+        <div className="text-center text-white p-6 backdrop-blur-md bg-black/50 rounded-lg shadow-lg">
+          <h1 className="text-4xl font-extrabold tracking-wider">Product Gallary</h1>
+          <p className="mt-2 text-lg font-light">The world is yours to explore with our cutting-edge tech.</p>
+
+        </div>
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-6 mb-6 mt-12 ">
         <div className="w-64">
-          <label className="block text-sm font-medium mb-1">Category</label>
+          <label className="block text-sm font-medium text-gray-200 mb-1">Category</label>
           <select
             value={category}
             onChange={handleCategoryChange}
-            className="block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="block w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (
@@ -133,11 +149,11 @@ const ProductShowcase = () => {
         </div>
 
         <div className="w-64">
-          <label className="block text-sm font-medium mb-1">Sort By</label>
+          <label className="block text-sm font-medium text-gray-200 mb-1">Sort By</label>
           <select
             value={sortBy}
             onChange={handleSortChange}
-            className="block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="block w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="">Default</option>
             <option value="asc">Price: Low to High</option>
@@ -146,31 +162,31 @@ const ProductShowcase = () => {
         </div>
 
         <div className="w-64">
-          <label className="block text-sm font-medium mb-1">Products Per Page</label>
+          <label className="block text-sm font-medium text-gray-200 mb-1">Products Per Page</label>
           <select
             value={productsPerPage}
             onChange={handleProductsPerPageChange}
-            className="block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="block w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
+            <option value={12}>12</option>
+            <option value={21}>21</option>
+            <option value={51}>51</option>
           </select>
         </div>
 
         <div className="w-64">
-          <label>Search</label>
+          <label className="block text-sm font-medium text-gray-200 mb-1">Search</label>
           <input
             type="text"
             placeholder="Search products..."
             value={searchQuery}
             onChange={handleSearch}
-            className="block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="block w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
         {products
           .filter((product) =>
             product.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -184,17 +200,17 @@ const ProductShowcase = () => {
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
-          className="px-3 py-1 bg-gray-500 text-white rounded-md disabled:bg-gray-300"
+          className="px-3 py-1 bg-gray-600 text-white rounded-md disabled:bg-gray-400"
         >
           Previous
         </button>
 
-        <span>Page {currentPage}</span>
+        <span className="text-white">Page {currentPage}</span>
 
         <button
           onClick={handleNextPage}
           disabled={products.length < productsPerPage}
-          className="px-3 py-1 bg-gray-500 text-white rounded-md disabled:bg-gray-300"
+          className="px-3 py-1 bg-gray-600 text-white rounded-md disabled:bg-gray-400"
         >
           Next
         </button>
@@ -206,7 +222,7 @@ const ProductShowcase = () => {
 // Export the component wrapped in a Suspense boundary
 export default function ProductShowcaseWrapper() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="text-white">Loading...</div>}>
       <ProductShowcase />
     </Suspense>
   );

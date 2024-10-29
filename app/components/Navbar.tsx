@@ -56,19 +56,19 @@ export default function Navbar() {
 
                     <div className="flex gap-6 text-white">
                         <FlyoutLink
-                            href="#"
+                            href="/"
                             FlyoutContent={HomeContent}
                         >
                             Home
                         </FlyoutLink>
                         <FlyoutLink
-                            href="#"
+                            href="/products"
                             FlyoutContent={CategoryContent}
                         >
-                            Category
+                            Products
                         </FlyoutLink>
                         <FlyoutLink
-                            href="#"
+                            href="/"
                             FlyoutContent={PageContent}
                         >
                             Pages
@@ -168,14 +168,20 @@ interface Category {
 
 const CategoryContent = () => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [categoryObj, setCategoryObj] = useState<Category>({});
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('api/products/category');
+                setCategoryObj(response.data.categories);
+                console.log(response.data.categories);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+        fetchCategories();
+    },[]);
 
-    const categoryObj = {
-        "apple": "https://www.apple.com",
-        "samsung": "https://www.samsung.com",
-        "boat": "https://www.boat-lifestyle.com",
-        "acer": "https://www.acer.com",
-        "charger": "#",
-    };
 
     return (
         <div className="w-40 bg-black px-6 py-4 shadow-2xl -left-11 absolute">
@@ -194,7 +200,7 @@ const CategoryContent = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { duration: 0.5 } }} // Fade-in effect
                         >
-                            {key.charAt(0).toUpperCase() + key.slice(1)}
+                            {url.charAt(0).toUpperCase() + url.slice(1)}
                         </motion.a>
                         <motion.span
                             initial={{ scaleX: 0 }}
@@ -217,19 +223,14 @@ const HomeContent = () => {
         <div className="w-[70vw] h-full bg-black text-white flex  p-6 mx-auto space-x-6">
             {/* Welcome Section */}
             <div className="w-1/4 space-y-4 flex flex-col items-start text-lg">
-                <h2 className="text-2xl font-bold">Welcome to Our Website</h2>
+                <h2 className="text-2xl font-bold">Welcome to Square</h2>
                 <p className="leading-relaxed">
-                    Explore the latest features and offerings from our services. Navigate through the menu to discover more.
+                Discover the ultimate destination for all your tech needs. Explore our latest offerings across various categories.
                 </p>
-                <div className="space-y-2">
-                    <a href="#menu1" className="hover:underline">Menu 1</a>
-                    <a href="#menu2" className="hover:underline">Menu 2</a>
-                    <a href="#menu3" className="hover:underline">Menu 3</a>
-                </div>
             </div>
 
             {/* Categories Section */}
-            <div className="w-1/4 text-center p-4">
+            <div className="w-1/4">
                 <h3 className="text-xl font-semibold mb-2">Category Page</h3>
                 <ul className="space-y-2">
                     <li><a href="#airpods" className="hover:underline">AirPods</a></li>
@@ -242,7 +243,7 @@ const HomeContent = () => {
             </div>
 
             {/* Product Features Section */}
-            <div className="w-1/4 text-center p-4">
+            <div className="w-1/4 ">
                 <h3 className="text-xl font-semibold mb-2">Feature Product</h3>
                 <ul className="space-y-2">
                     <li><a href="#product-video" className="hover:underline">Product Video</a></li>
@@ -255,20 +256,20 @@ const HomeContent = () => {
             {/* Image Sections */}
             <div className="w-1/4 text-center">
                 <img
-                    src="https://via.placeholder.com/150"
+                    src="https://techno-workdo.myshopify.com/cdn/shop/files/1_a8b34ad1-e057-4985-8ffa-fd6151a892e9_600x600.png"
                     alt="Feature 1"
                     className="rounded-lg shadow-md hover:scale-105 transform transition duration-300"
                 />
-                <p className="mt-2 text-sm">Feature 1</p>
+                {/* <p className="mt-2 text-sm">Feature 1</p> */}
             </div>
 
             <div className="w-1/4 text-center">
                 <img
-                    src="https://via.placeholder.com/150"
+                    src="https://pngimg.com/d/iphone_12_PNG23.png"
                     alt="Feature 2"
                     className="rounded-lg shadow-md hover:scale-105 transform transition duration-300"
                 />
-                <p className="mt-2 text-sm">Feature 2</p>
+                {/* <p className="mt-2 text-sm">Feature 2</p> */}
             </div>
         </div>
     );
@@ -281,12 +282,10 @@ const PageContent = () => {
     const pagesObj = {
         "Home": "/",
         "About Us": "/about",
-        "Services": "/services",
         "Products": "/products",
+        "Cart": "/user/cart",
+        "Wishlist": "/user/wishlist",
         "Contact Us": "/contact",
-        "Careers": "/careers",
-        "FAQ": "/faq",
-        "Support": "/support",
         "Terms of Service": "/terms-of-service",
         "Privacy Policy": "/privacy-policy"
     };

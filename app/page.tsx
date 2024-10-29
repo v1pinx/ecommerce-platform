@@ -5,6 +5,7 @@ import fetchProtectedData from "./lib/fetchProtectedData";
 import Link from "next/link";
 import ImageSlider from "./components/ImageSlider";
 import Main from "./components/Main";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
     const router = useRouter();
@@ -34,14 +35,9 @@ export default function Home() {
     }
 
     return (
-        <>
-        <ImageSlider />
-        <Main />
-            {/* <div className="flex justify-center items-center h-screen"> */}
-                <Link href='/products'>
-                    <button className="px-8 py-4 rounded-lg border bg-black text-white">Products</button>
-                </Link>
-            {/* </div> */}
+        <>  
+            <ImageSlider />
+            <Main />
         </>
     );
 }
