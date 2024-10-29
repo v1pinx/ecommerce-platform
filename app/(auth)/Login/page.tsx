@@ -41,8 +41,8 @@ export default function Login() {
 
 
     return (
-        <div className='min-h-screen flex justify-center items-center flex-col'>
-            <form onSubmit={handleSubmit} className='bg-white p-6 rounded-lg  flex flex-col'>
+        <div className='min-h-screen flex justify-center items-center flex-col bg-gradient-to-b from-gray-900 to-black'>
+            <form onSubmit={handleSubmit} className='bg-white py-12 px-6 rounded-lg  flex flex-col'>
                 <h2 className='font-semibold mb-10 text-center text-3xl'>Welcome Back</h2>
 
                 <div className='relative mb-2'>
@@ -87,7 +87,7 @@ export default function Login() {
                 <Toaster />
             </form>
 
-            <div>Don't have an account? <a href="/Register" className='text-teal-500'>Sign up</a></div>
+            <div className='text-white mt-5'>Don't have an account? <a href="/Register" className='text-teal-500'>Sign up</a></div>
         </div>
     )
 }
