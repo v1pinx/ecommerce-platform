@@ -18,7 +18,7 @@ const slides = [
 
 export default function ImageSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef(null); // Reference to store the interval
+  const intervalRef = useRef<NodeJS.Timeout | undefined>(undefined); // Reference to store the interval
 
   // Start the interval function
   const startSlider = () => {
@@ -39,17 +39,6 @@ export default function ImageSlider() {
     return () => stopSlider(); // Cleanup interval on unmount
   }, []);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
-  };
 
   return (
     <div
@@ -96,7 +85,7 @@ export default function ImageSlider() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
-                className="px-4 py-2 text-sm md:text-lg bg-blue-500 hover:bg-white hover:text-black transition"
+                className="px-4 py-2 text-sm md:text-lg bg-indigo-500 hover:bg-white hover:text-black transition"
               >
                 Show Now
               </motion.button>
@@ -104,20 +93,6 @@ export default function ImageSlider() {
           </div>
         ))}
       </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={goToPrevious}
-        className="absolute top-1/2 left-4 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200"
-      >
-        ❮
-      </button>
-      <button
-        onClick={goToNext}
-        className="absolute top-1/2 right-4 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200"
-      >
-        ❯
-      </button>
 
       {/* Dots for Navigation */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
