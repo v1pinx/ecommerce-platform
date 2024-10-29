@@ -25,17 +25,12 @@ export const Footer = () => {
                 <rect x="14" y="11" width="7" height="12" />
               </svg>
               <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                Company
+                SQUARE
               </span>
             </a>
             <div className="mt-6 lg:max-w-sm">
               <p className="text-sm text-gray-800">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam.
-              </p>
-              <p className="mt-4 text-sm text-gray-800">
-                Eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                beatae vitae dicta sunt explicabo.
+              Explore a world of innovation! Browse the latest in Mobiles, Audio, Gaming, TVs, Laptops, and Appliances. Find the perfect product for every need—right at your fingertips!
               </p>
             </div>
           </div>
@@ -57,12 +52,12 @@ export const Footer = () => {
             <div className="flex">
               <p className="mr-1 text-gray-800">Email:</p>
               <a
-                href="mailto:info@lorem.mail"
+                href="mailto:#"
                 aria-label="Our email"
                 title="Our email"
                 className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
               >
-                info@lorem.mail
+                info@square.mail
               </a>
             </div>
             <div className="flex">
@@ -111,14 +106,13 @@ export const Footer = () => {
               </a>
             </div>
             <p className="mt-4 text-sm text-gray-500">
-              Bacon ipsum dolor amet short ribs pig sausage prosciutto chicken
-              spare ribs salami.
+              Follow us on our social media platforms to stay updated.
             </p>
           </div>
         </div>
         <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
           <p className="text-sm text-gray-600">
-            © Copyright 2020 Lorem Inc. All rights reserved.
+            © Copyright 2024 Lorem Inc. All rights reserved.
           </p>
           <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
             <li>
