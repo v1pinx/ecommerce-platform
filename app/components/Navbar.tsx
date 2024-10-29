@@ -174,7 +174,6 @@ const CategoryContent = () => {
             try {
                 const response = await axios.get('api/products/category');
                 setCategoryObj(response.data.categories);
-                console.log(response.data.categories);
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
