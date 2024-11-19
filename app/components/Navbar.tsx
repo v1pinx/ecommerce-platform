@@ -162,6 +162,7 @@ const FlyoutLink = ({ children, href, FlyoutContent }: {
         </div>
     )
 }
+
 interface Category {
     [key: string]: string;
 }
@@ -173,6 +174,7 @@ const CategoryContent = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get('api/products/category');
+                console.log(response.data.categories);      
                 setCategoryObj(response.data.categories);
             } catch (error) {
                 console.error("Error fetching categories:", error);
